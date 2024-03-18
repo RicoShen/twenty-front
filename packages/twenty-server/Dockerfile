@@ -2,14 +2,14 @@ FROM node:18.16.0-alpine as twenty-server-build
 
 WORKDIR /app
 
-COPY ./package.json .
-COPY ./yarn.lock .
-COPY ./.yarnrc.yml .
-COPY ./tsconfig.base.json .
-COPY ./nx.json .
-COPY ./.yarn/releases /app/.yarn/releases
-COPY ./packages/twenty-emails /app/packages/twenty-emails
-COPY ./packages/twenty-server /app/packages/twenty-server
+COPY /package.json .
+COPY /yarn.lock .
+COPY /.yarnrc.yml .
+COPY /tsconfig.base.json .
+COPY /nx.json .
+COPY /.yarn/releases /app/.yarn/releases
+COPY /packages/twenty-emails /app/packages/twenty-emails
+COPY /packages/twenty-server /app/packages/twenty-server
 RUN yarn
 
 RUN npx nx reset
@@ -31,7 +31,5 @@ WORKDIR /app/packages/twenty-server
 
 LABEL org.opencontainers.image.source=https://github.com/twentyhq/twenty
 LABEL org.opencontainers.image.description="This image provides a consistent and reproducible environment for the backend, ensuring it deploys faster and runs the same way regardless of the deployment environment."
-
-EXPOSE 3000:3000
 
 CMD ["node", "dist/src/main"]
